@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Lista de tarefas</h2>
+  <div class="container-adicionar">
+    <label for="tarefa-input">Adicione sua tarefa</label>
+    <br>
+    <input type="text" id="tarefa-input" [(ngModel)]="conteudo">
+    <button (click)="addTarefa()"><fa-icon [icon]="faPlus"></fa-icon></button>
+  </div>
+  <div class="container-filtro">
+    <label for="filtro-input">Pesquisar</label>
+    <br>
+    <input type="text" id="filtro-input" [(ngModel)]="filtro">
+    <button (click)="resetFiltro()"><fa-icon [icon]="faEraser"></fa-icon></button>
+  </div>
+  <div *ngFor="let tarefa of tarefasFiltradas" class="container-tarefa">
+    <p>{{tarefa.conteudo}}</p>
+    <div class="container-opcoes">
+      <button (click)="openEditModal(editModal, tarefa)"><fa-icon [icon]="faPen"></fa-icon></button>
+      <button (click)="openDeleteModal(deleteModal, tarefa.id)"><fa-icon [icon]="faTrash"></fa-icon></button>
+    </div>
+  </div>
+</div>
+<ng-template #deleteModal>
+  <div class="container-confirmacao">
+    <p>Tem certeza que deseja excluir a tarefa?</p>
+    <div class="container-confirmacao-opcoes">
+      <button (click)="deleteTarefa(idParaExcluir)">Confirmar</button>
+      <button (click)="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editModal>
+  <div class="container-adicionar">
+    <label for="tarefa-input">Edite sua tarefa</label>
+    <br>
+    <input type="text" id="tarefa-input" [(ngModel)]="conteudoParaEditar" [placeholder]="tarefaParaEditar.conteudo">
+    <button (click)="editTarefa(tarefaParaEditar)"><fa-icon [icon]="faCheck"></fa-icon></button>
+  </div>
+</ng-template>
